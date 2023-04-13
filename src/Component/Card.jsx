@@ -6,15 +6,10 @@ import { toast } from 'react-hot-toast';
 import { userAuth } from '../contextProvider/ContextProvider';
 
 
-
-
-
-
-
 const Card = ({ product }) => {
     console.log(product);
     const { user } = useContext(userAuth)
-    // all product destuctureing 
+
     const { _id, productName, price, oldPrice,
         description, imgaeOne, imageTwo, imageThird } = product;
 
@@ -51,7 +46,7 @@ const Card = ({ product }) => {
         <div className='p-4 m-3 border border-light rounded-2xl shadow-2xl'>
             <div className='flex justify-between items-center mb-2'>
 
-                <Button className='btn-sm'></Button>
+                <Button desgin={'btn-sm'} name={'Shop Now'}></Button>
                 <button onClick={() => hadenlAddtoCart(product)}> <HeartIcon className="h-6 w-6 text-gray-400 hover:text-yellow-500" /></button>
 
             </div>
