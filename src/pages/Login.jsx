@@ -27,7 +27,7 @@ const Login = () => {
                 <div className='mb-2 mt-2'>
                     <lebel>Phone Number</lebel>
                 </div>
-                <PhoneInput
+                <PhoneInput                   
                    inputStyle={{color:"black"}}
                     country={'bd'}
                     inputProps={{
@@ -42,7 +42,7 @@ const Login = () => {
                     <lebel>password</lebel>
                 </div>
                 <div className='mb-2'>
-                    <input name='password' type="password" className='input bg-white text-black input-bordered w-full' />
+                    <input name='password' type="password" className='input bg-white text-black  input-bordered w-full' />
                 </div>
                 <div>
                     <p>Are You New <Link to='/signup'><span className='text-green-800 font-bold'>SingUp</span></Link></p>
