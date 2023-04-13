@@ -4,24 +4,39 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Error404 from "../pages/Error404.JSX";
+import DashBorad from "../pages/DashBoard/DashBorad";
+import ViewCat from "../pages/ViewCart/ViewCat";
+import Products from "../pages/Products/Products";
 
-export const router=createBrowserRouter([
+export const router = createBrowserRouter([
     {
-        path:"/",
-        element:<Layout />,
-        errorElement:<Error404 />,
-        children:[
+        path: "/",
+        element: <Layout />,
+        errorElement: <Error404 />,
+        children: [
             {
-                path:'/',
-                element:<Home />
+                path: '/',
+                element: <Home />
             },
             {
-                path:'/login',
-                element:<Login />
+                path: '/login',
+                element: <Login />
             },
             {
-                path:'/signup',
-                element:<SignUp />
+                path: '/signup',
+                element: <SignUp />
+            },
+            {
+                path: '/viewcart',
+                element: <ViewCat />
+            },
+            {
+                path: '/products',
+                element: <Products />
+            },
+            {
+                path: "/dashboard",
+                element: <DashBorad />
             }
         ]
     }
