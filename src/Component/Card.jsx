@@ -6,6 +6,11 @@ import { toast } from 'react-hot-toast';
 import { userAuth } from '../contextProvider/ContextProvider';
 
 
+
+
+
+
+
 const Card = ({ product }) => {
     console.log(product);
     const { user } = useContext(userAuth)
