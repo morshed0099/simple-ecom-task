@@ -7,6 +7,7 @@ import Error404 from "../pages/Error404.JSX";
 import DashBorad from "../pages/DashBoard/DashBorad";
 import ViewCat from "../pages/ViewCart/ViewCat";
 import Products from "../pages/Products/Products";
+import ProductDetails from "../pages/Products/ProductDetails";
 
 export const router = createBrowserRouter([
     {
@@ -33,6 +34,13 @@ export const router = createBrowserRouter([
             {
                 path: '/product',
                 element: <Products />
+            },
+            {
+                path: '/productdetails/:id',
+                loader:async({params})=>{
+                    return await fetch(`https://ecom-repliq-server-morshed0099.vercel.app/productdetails/${params.id}`)
+                },
+                element: <ProductDetails />
             },
             {
                 path: "/dashboard",
