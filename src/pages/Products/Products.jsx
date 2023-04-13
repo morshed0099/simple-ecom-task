@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import Card from '../../Component/Card';
-import SliderProduct from '../../contextProvider/SliderProduct';
 import Button from '../../Component/Button';
 import CategoryWise from './CategoryWise';
 

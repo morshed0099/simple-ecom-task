@@ -4,17 +4,20 @@ import Button from './Button';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { userAuth } from '../contextProvider/ContextProvider';
+import { useState } from 'react';
 
 
 const Card = ({ product }) => {
     console.log(product);
     const { user } = useContext(userAuth)
+    const [activeCard,setActiveCard]=useState(false)
 
     const { _id, productName, price, oldPrice,
         description, imgaeOne, imageTwo, imageThird } = product;
 
     const hadenlAddtoCart = (product) => {
-        const cartProduct = {
+        setActiveCard(true)
+            const cartProduct = {
             cartId: product._id,
             customerEmail: user?.email,
             price: product.price,
@@ -23,11 +26,10 @@ const Card = ({ product }) => {
             imageTwo: product.product,
             imageThird: product.imageThird,
             productName: product.productName,
-            description: product.description
-
-
+            description: product.description,
+            quantity:1
         }
-        fetch('https://ecom-repliq-server-morshed0099.vercel.app/cart', {
+        fetch('http://localhost:5000/addtocard', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(cartProduct)
@@ -47,7 +49,7 @@ const Card = ({ product }) => {
             <div className='flex justify-between items-center mb-2'>
 
                 <Button desgin={'btn-sm'} name={'Shop Now'}></Button>
-                <button onClick={() => hadenlAddtoCart(product)}> <HeartIcon className="h-6 w-6 text-gray-400 hover:text-yellow-500" /></button>
+                <button  onClick={() => hadenlAddtoCart(product)}> <HeartIcon className={`h-6 w-6 text-gray-400 hover:text-yellow-500 ${activeCard ?"text-yellow-400":""} `} /></button>
 
             </div>
             <div className='overflow-hidden p-3 mb-2'>

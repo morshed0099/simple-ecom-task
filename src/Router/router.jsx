@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
             {
                 path: '/productdetails/:id',
                 loader:async({params})=>{
-                    return await fetch(`https://ecom-repliq-server-morshed0099.vercel.app/productdetails/${params.id}`)
+                    return await fetch(`http://localhost:5000/productdetails/${params.id}`)
                 },
                 element: <ProductDetails />
             },

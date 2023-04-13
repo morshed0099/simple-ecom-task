@@ -3,18 +3,44 @@ import { toast } from 'react-hot-toast';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { userAuth } from '../contextProvider/ContextProvider';
+import { useState } from 'react';
 
 
 const Login = () => {
+    const [loader,setLoader]=useState(false)
+    const { user, setUser } = useContext(userAuth)
     // const navigate=useNavigate()
     // let location = useLocation();
     // const from = location.state?.from?.pathname || "/";
 
     const hadelLogin = (e) => {
+        setLoader(true)
         e.preventDefault()
         const form = e.target
-        const email = form.email.value;
-        const password = form.password.value;
+        const phoneNumber=form.phone.valu;
+        const password=form.password.value
+         const user ={
+            phoneNumber,
+            password
+         }
+        fetch('http://localhost:5000/login', {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body:JSON.stringify(user)        
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.token && data.user){
+                    toast.success('login succesfully')
+                    setLoader(false)
+                    setUser(data.user);
+                    localStorage.setItem('token',data.token)
+                }else{
+                    toast.error(data.message)
+                    setLoader(false)
+                }
+            })
 
     }
     return (
@@ -27,8 +53,8 @@ const Login = () => {
                 <div className='mb-2 mt-2'>
                     <lebel>Phone Number</lebel>
                 </div>
-                <PhoneInput                   
-                   inputStyle={{color:"black"}}
+                <PhoneInput
+                    inputStyle={{ color: "black" }}
                     country={'bd'}
                     inputProps={{
                         name: 'phone',
@@ -49,7 +75,9 @@ const Login = () => {
                 </div>
                 <div>
                     <button className='btn bg-pink-600 hover:bg-pink-800 border-none w-full'>
-                        Login
+                      {
+                        loader?"please wait..":"Login"
+                      }
                     </button>
                 </div>
             </form>

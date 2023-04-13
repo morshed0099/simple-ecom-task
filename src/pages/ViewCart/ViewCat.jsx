@@ -12,9 +12,9 @@ const ViewCart = () => {
     return (
         <div className=' p-4 max-w-[1000px] mx-auto'>
             {
-                card.map((crt, index) => <ViewCardDetails
-                    key={crt._id}
-                    crt={crt}
+                card.map((crd, index) => <ViewCardDetails
+                    key={crd._id}
+                    crd={crd}
                 ></ViewCardDetails>)
 
             }

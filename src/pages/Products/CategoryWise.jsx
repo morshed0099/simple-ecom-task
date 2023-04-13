@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '../../Component/Button';
 import SliderProduct from '../../contextProvider/SliderProduct';
 import Card from '../../Component/Card';
 

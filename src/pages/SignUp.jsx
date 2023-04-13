@@ -1,36 +1,57 @@
 import React from 'react';
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import PhoneInput from 'react-phone-input-2';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-    const handelSingup = (e) => {   
+    const [loader, setLoader] = useState(false)
+    const navigate = useNavigate()
+
+    const handelSingup = (e) => {
+        setLoader(true)
         e.preventDefault()
         const form = e.target
         const userName = form.userName.value;
         const email = form.email.value;
         const phoneNumber = form.phone.value;
         const password = form.password.value;
-        console.log(userName, email, phoneNumber, password)
 
-        const createUser = {
+        const user = {
             userName,
             email,
             phoneNumber,
             password,
             userRoll: "customer"
         }
-     
+        fetch('http://localhost:5000/user', {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(user),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Succesfully signup')
+                    form.reset()
+                    setLoader(false)
+                    navigate('/login')
+                } else {
+                    toast.error(data.message)
+                    setLoader(false)
+                }
+            })
 
     }
     return (
         <div className='w-96 dark:bg-gray-900 bg-white mx-auto border placeholder-black border-black dark:border-white rounded-2xl p-4 my-4'>
-            <form onSubmit={handelSingup}> 
+            <form onSubmit={handelSingup}>
 
                 <div className='mb-2'>
                     <h2 className='text-3xl font-bold text-center'>SignUp Form</h2>
                 </div>
                 <div className='mb-2'>
-                    <lebel>Name</lebel>
+                    <lebel >Name</lebel>
                 </div>
                 <div className='mb-2'>
                     <input name='userName' type="text" placeholder='Enter Your Name' className='input placeholder-gray-500 bg-white text-black input-bordered w-full' />
@@ -46,7 +67,7 @@ const SignUp = () => {
                 </div>
 
                 <PhoneInput
-                    inputStyle={{color:"black"}}
+                    inputStyle={{ color: "black" }}
                     country={'bd'}
                     inputProps={{
                         name: 'phone',
@@ -67,9 +88,9 @@ const SignUp = () => {
                 </div>
                 <div className='mb-2'>
                     <button className='btn bg-pink-600 hover:bg-pink-800 border-none w-full'>
-                        {/* {
+                        {
                             loader ? "please wait" : "SignUp"
-                        } */}
+                        }
                     </button>
                 </div>
             </form>
