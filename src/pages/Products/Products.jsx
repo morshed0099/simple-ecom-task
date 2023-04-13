@@ -1,11 +1,29 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import Card from '../../Component/Card';
 
-const Products = () => {
+
+
+const Produncts = () => {
+    
+    const {data:products=[],refetch,isLoading}=useQuery({
+        queryKey:['products'],
+        queryFn:async()=>{
+          const res=await fetch('https://ecom-repliq-server-morshed0099.vercel.app/product')
+          const data=await res.json()
+          return data
+        }      
+      })
     return (
         <div>
-            <h1>this is products js page</h1>
+            {
+                products.map(product=><Card
+                product={product}
+                key={product._id}
+                ></Card>)
+            }            
         </div>
     );
 };
 
-export default Products;
+export default Produncts;

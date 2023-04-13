@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
                 element: <ViewCat />
             },
             {
-                path: '/products',
+                path: '/product',
                 element: <Products />
             },
             {
