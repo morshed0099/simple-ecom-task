@@ -4,7 +4,6 @@ import { useLoaderData } from 'react-router-dom';
 
 const ProductDetails = () => {
     const product=useLoaderData()
-    console.log(product);
     const {  productName, price, 
         description, imgaeOne, imageTwo, imageThird } = product;
         const [img, setImg] = useState(imgaeOne)

@@ -1,25 +1,31 @@
 import React, { useContext } from 'react';
 import { HeartIcon, StarIcon } from '@heroicons/react/24/solid'
 import Button from './Button';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { userAuth } from '../contextProvider/ContextProvider';
 import { useState } from 'react';
+import useCardView from '../Hooks/useCardView';
+import Login from '../pages/Login';
 
 
 const Card = ({ product }) => {
     console.log(product);
-    const { user } = useContext(userAuth)
-    const [activeCard,setActiveCard]=useState(false)
-
+    const { user, setLoader } = useContext(userAuth)
+    const [activeCard, setActiveCard] = useState(false)
+    const [card, refetch] = useCardView(user?.phoneNumber)
     const { _id, productName, price, oldPrice,
-        description, imgaeOne, imageTwo, imageThird } = product;
+        description, imgaeOne, imageTwo, imageThird  } = product;
+    const nagitage = useNavigate()
 
     const hadenlAddtoCart = (product) => {
+        if (!user?.phoneNumber) {
+            return toast.error('please login first');
+        }
         setActiveCard(true)
-            const cartProduct = {
+        const cartProduct = {
             cartId: product._id,
-            customerEmail: user?.email,
+            phoneNumber: user?.phoneNumber,
             price: product.price,
             oldPrice: product.oldPrice,
             imgaeOne: product.product,
@@ -27,8 +33,9 @@ const Card = ({ product }) => {
             imageThird: product.imageThird,
             productName: product.productName,
             description: product.description,
-            quantity:1
+            quantity: 1
         }
+
         fetch('http://localhost:5000/addtocard', {
             method: "POST",
             headers: { "content-type": "application/json" },
@@ -38,6 +45,7 @@ const Card = ({ product }) => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('added to cart')
+                    refetch()
                 } else {
                     toast.error(data?.message);
                 }
@@ -46,10 +54,10 @@ const Card = ({ product }) => {
 
     return (
         <div className='p-4 m-3 border border-light rounded-2xl shadow-2xl'>
+           
             <div className='flex justify-between items-center mb-2'>
-
                 <Button desgin={'btn-sm'} name={'Shop Now'}></Button>
-                <button  onClick={() => hadenlAddtoCart(product)}> <HeartIcon className={`h-6 w-6 text-gray-400 hover:text-yellow-500 ${activeCard ?"text-yellow-400":""} `} /></button>
+                <button onClick={() => hadenlAddtoCart(product)}> <HeartIcon className={`h-6 w-6 text-gray-400 hover:text-yellow-500 ${activeCard ? "text-yellow-400" : ""} `} /></button>
 
             </div>
             <div className='overflow-hidden p-3 mb-2'>

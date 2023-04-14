@@ -2,22 +2,32 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import Button from '../../Component/Button';
 import CategoryWise from './CategoryWise';
-
+import useCardView from '../../Hooks/useCardView';
+import { useContext } from 'react';
+import { userAuth } from '../../contextProvider/ContextProvider';
+import { Link } from 'react-router-dom';
 
 
 const Produncts = () => {
-    const { data: products = [], refetch, isLoading } = useQuery({
+    const { user } = useContext(userAuth)
+
+    const [card, refetch] = useCardView(user?.phoneNumber)
+    const { data: products = [], isLoading } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/products')
             const data = await res.json()
+            refetch()
             return data
         }
     })
+
+
     const menProducts = products.filter(product => product.category_name === 'men')
     const womenProducts = products.filter(product => product.category_name === 'women')
-    const kidsProducts = products.filter(product => product.category_name === 'women')
-    console.log(menProducts);
+    const kidsProducts = products.filter(product => product.category_name === 'kids')
+
+
     return (
         <div className='max-w-[1200px] mx-auto'>
             <div className='flex items-center justify-between'>
@@ -27,10 +37,10 @@ const Produncts = () => {
                     </h1>
                 </div>
                 <div>
-                    <Button desgin={'btn-sm'} name={"View All"}></Button>
+                    <Link to='/men'><Button desgin={'btn-sm'} name={"View All"} /></Link>
                 </div>
             </div>
-            <CategoryWise product={menProducts} />
+            <CategoryWise category={menProducts} />
             <div className='max-w-[1200px] mx-auto'>
                 <div className='flex items-center justify-between'>
                     <div>
@@ -39,11 +49,10 @@ const Produncts = () => {
                         </h1>
                     </div>
                     <div>
-                        <Button desgin={'btn-sm'} name={"View All"}></Button>
+                        <Link to='/women'><Button desgin={'btn-sm'} name={"View All"} /></Link>
                     </div>
                 </div>
-                <CategoryWise product={womenProducts} />
-
+                <CategoryWise category={womenProducts} />
             </div>
             <div className='max-w-[1200px] mx-auto'>
                 <div className='flex items-center justify-between'>
@@ -53,11 +62,10 @@ const Produncts = () => {
                         </h1>
                     </div>
                     <div>
-                        <Button desgin={'btn-sm'} name={"View All"}></Button>
+                        <Link to='/kids'><Button desgin={'btn-sm'} name={"View All"} /></Link>
                     </div>
                 </div>
-                <CategoryWise product={kidsProducts} />
-
+                <CategoryWise category={kidsProducts} />
             </div>
 
 

@@ -4,14 +4,14 @@ import { toast } from 'react-hot-toast';
 import { userAuth } from '../../contextProvider/ContextProvider';
 
 
-const ViewCardDetails = ({ crt }) => {
-    const { _id, imageThird, productName, price, paid } = crt
+const ViewCardDetails = ({ crd }) => {
+    const { _id, imageThird, productName, price, paid,quantity:qnty } = crd
     const { user } = useContext(userAuth)
     const [prices, setPrice] = useState(price)
     const [totalPrice, setTotalPrice] = useState(price)
-    const [quantity, setQuantity] = useState(1)
+    const [quantity, setQuantity] = useState(qnty)
 
-    console.log(crt, 'line 13')
+  
     const handeldecriment = (e) => {
         setQuantity(quantity - 1)
         if (quantity > 0) {
@@ -81,7 +81,7 @@ const ViewCardDetails = ({ crt }) => {
             </div>
             <div>
                 <div>
-                    <button onClick={() => handelbuy(user, crt, prices, quantity)} className='btn mr-[20px] mb-3 btn-success btn-sm'>{paid ? "paid" : "pay"}</button>
+                    <button onClick={() => handelbuy(user, crd, prices, quantity)} className='btn mr-[20px] mb-3 btn-success btn-sm'>{paid ? "paid" : "pay"}</button>
                 </div>
                 <div>
                     <button onClick={() => hadelCartDelete(user, _id)}><TrashIcon className="h-6 w-6 ml-4 text-red-500" /> </button>

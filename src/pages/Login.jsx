@@ -5,15 +5,17 @@ import 'react-phone-input-2/lib/style.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { userAuth } from '../contextProvider/ContextProvider';
 import { useState } from 'react';
+import useCardView from '../Hooks/useCardView';
 
 
 const Login = () => {
-    const [loader, setLoader] = useState(false)
-    const { setUser } = useContext(userAuth)
+    const { user, loader, setLoader, setUser } = useContext(userAuth)
+    console.log(user,loader ,'13')
+    const isAdmin = true;
+    const [card, refetch] = useCardView(user?.phoneNumber)
     let navigate = useNavigate();
     const location = useLocation()
     const form = location.state?.form?.pathname || '/'
-
     const hadelLogin = (e) => {
         setLoader(true)
         e.preventDefault()
@@ -36,6 +38,7 @@ const Login = () => {
                     toast.success('login succesfully')
                     setLoader(false)
                     setUser(data.user);
+                    refetch()
                 }
                 if (data.message) {
                     toast.error(data.message)
@@ -47,6 +50,7 @@ const Login = () => {
     const getToken = (token) => {
         localStorage.setItem('token', token)
         navigate(form, { replace: true });
+        setLoader(false)
     }
     return (
 

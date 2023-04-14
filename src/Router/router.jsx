@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
-import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Error404 from "../pages/Error404.JSX";
@@ -9,6 +8,9 @@ import ViewCat from "../pages/ViewCart/ViewCat";
 import Products from "../pages/Products/Products";
 import ProductDetails from "../pages/Products/ProductDetails";
 import PrivateRoute from "./PrivateRoute";
+import MenProducs from "../pages/Products/MenProducs";
+import WomenProduct from "../pages/Products/WomenProduct";
+import KidsProducts from "../pages/Products/KidsProducts";
 
 
 export const router = createBrowserRouter([
@@ -19,8 +21,9 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home />
+                element: <Products />
             },
+       
             {
                 path: '/login',
                 element: <Login />
@@ -30,13 +33,23 @@ export const router = createBrowserRouter([
                 element: <SignUp />
             },
             {
+                path: '/men',
+                element: <MenProducs />
+            },
+            {
+                path: '/women',
+                element: <WomenProduct />
+            },
+            {
+                path: '/kids',
+                element: <KidsProducts />
+            },
+
+            {
                 path: '/viewcart',
                 element: <ViewCat />
             },
-            {
-                path: '/product',
-                element: <Products />
-            },
+           
             {
                 path: '/productdetails/:id',
                 loader: async ({ params }) => {

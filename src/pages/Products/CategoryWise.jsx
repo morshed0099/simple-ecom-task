@@ -1,23 +1,22 @@
 import React from 'react';
-
 import Card from '../../Component/Card';
 import SliderProduct from '../../Component/SliderProduct';
 
-const CategoryWise = ({product}) => {
+const CategoryWise = ({category }) => {
+ 
     return (
-        <div>    
+        <div>
+
             <SliderProduct
                 sliderItems=
-                {
-                    product.map(product => <Card
-                        product={product}
-                        key={product._id}
-                    ></Card>)
-                }
-            >
-            </SliderProduct>
+                  {  category.map(catgry => <Card
+                        product={catgry}
+                        key={catgry._id}
+                    ></Card>)}
+                   
+            />
 
-        </div>
+        </div >
     );
 };
 

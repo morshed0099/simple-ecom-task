@@ -1,20 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { userAuth } from '../contextProvider/ContextProvider';
+import useCardView from '../Hooks/useCardView';
+
 
 
 const Header = () => {
-    const { user, setUser,setLoader } = useContext(userAuth)
+    const { user, setUser, } = useContext(userAuth)
     const isAdmin = true;
-    const handelLogout = () => {
+
+    const [card, refetch] = useCardView(user?.phonenumber)
+    const handelLogout = async () => {
+        const usr = await setUser(null)
+        const data= await  refetch()
         localStorage.removeItem('token');
-        setLoader(false)
-        setUser(null);
+       return console.log(data,'22',usr,'25','dfsfdksdff 18')
     }
     const menuItems =
         <>
-            <NavLink style={{ marginTop: "10px", marginRight: "5px", fontWeight: "bold" }} className={`isactive ? "active":""`} to='/'>Home</NavLink>
-            <NavLink style={{ marginTop: "10px", marginRight: "5px", fontWeight: "bold" }} className={`isactive ? "active":""`} to='/product'>Product</NavLink>
+          
+            <NavLink style={{ marginTop: "10px", marginRight: "5px", fontWeight: "bold" }} className={`isactive ? "active":""`} to='/'>Product</NavLink>
             {
                 isAdmin ?
                     <NavLink style={{ marginTop: "10px", marginRight: "5px", fontWeight: "bold" }} to='/dashboard'>Dashboard</NavLink> : ""
@@ -23,7 +28,7 @@ const Header = () => {
                 <label tabIndex={0} className="btn btn-ghost btn-circle">
                     <div className="indicator">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                        <span className="badge badge-sm indicator-item">01</span>
+                        <span className="badge badge-sm indicator-item">{card.length}</span>
                     </div>
                 </label>
             </NavLink>
