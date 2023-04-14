@@ -7,7 +7,7 @@ import useCardView from '../../Hooks/useCardView';
 
 const ViewCart = () => {
     const { user } = useContext(userAuth)
-    const [card, refetch] = useCardView(user?.email)
+    const [card, refetch] = useCardView(user?.phoneNumber)
     refetch()
     return (
         <div className=' p-4 max-w-[1000px] mx-auto'>
