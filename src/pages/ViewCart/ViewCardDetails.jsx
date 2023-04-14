@@ -4,14 +4,14 @@ import { toast } from 'react-hot-toast';
 import { userAuth } from '../../contextProvider/ContextProvider';
 
 
-const ViewCardDetails = ({ crd }) => {
-    const { _id, imageThird, productName, price, paid,quantity:qnty } = crd
+const ViewCardDetails = ({ crd, refetch }) => {
+    const { _id, imageThird, productName, price, paid, quantity: qnty } = crd
     const { user } = useContext(userAuth)
     const [prices, setPrice] = useState(price)
     const [totalPrice, setTotalPrice] = useState(price)
     const [quantity, setQuantity] = useState(qnty)
 
-  
+
     const handeldecriment = (e) => {
         setQuantity(quantity - 1)
         if (quantity > 0) {
@@ -26,35 +26,38 @@ const ViewCardDetails = ({ crd }) => {
     const handelbuy = (user, product, prices, quantity) => {
         const buy = {
             buyId: product._id,
-            customerEmail: user.email,
+            customerEmail: user?.email,
+            phoneNumber: user?.phoneNumber,
             prices,
             productName: product.productName,
             quantity,
             customerPhone: user?.phoneNumber
         }
         console.log(buy)
-        fetch('https://ecom-repliq-server-morshed0099.vercel.app/paid', {
+        fetch('http://localhost:5000/paid', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(buy)
         }).then(res => res.json()).then(data => {
-            if (data.deletedCount > 0) {
-                toast.success('delete successfully')
+            if (data.acknowledged) {
+                toast.success('paid successfully')
+                refetch()
             }
         })
     }
     const hadelCartDelete = (user, id) => {
-        console.log(user?.email, id);
-        const fidner = { customerEmail: user?.email }
+
+        const fidner = { phoneNumber: user?.phoneNumber }
         const yes = window.confirm('are your sure datele ?')
         if (yes) {
-            fetch(`https://ecom-repliq-server-morshed0099.vercel.app/cart/${id}`, {
+            fetch(`http://localhost:5000/card/${id}`, {
                 method: "DELETE",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify(fidner)
             }).then(res => res.json()).then(data => {
                 if (data.deletedCount > 0) {
                     toast.success('delete successfully')
+                    refetch()
                 }
             })
         }

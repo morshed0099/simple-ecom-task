@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
+import useCardView from '../Hooks/useCardView';
 
 export const userAuth = createContext()
 
@@ -6,6 +7,7 @@ const ContextProvider = ({ children }) => {
     const [user, setUser] = useState('')
     const [loader, setLoader] = useState(true);
     console.log(user, loader, '8')
+    const [card,refetch]=useCardView(user)
     const token = localStorage.getItem("token")
     useEffect(() => {
         if (!token) {
@@ -18,11 +20,12 @@ const ContextProvider = ({ children }) => {
                 }
             }).then(res => res.json()).then(data => {
                 setUser(data);
-                setLoader(false);
+                setLoader(false);                
+                refetch()
 
             })
         }
-    }, [token])
+    }, [token,refetch])
 
     const userInfo = {
         setUser,

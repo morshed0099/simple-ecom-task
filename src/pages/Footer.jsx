@@ -5,7 +5,7 @@ const Footer = () => {
     return (
 
         <div className="className='w-full  text-white bg-no-repeat bg-cover" style={{ backgroundImage: `url(${img})` }}>
-            <div className='max-w-[1240px] py-10 px-4 mx-auto'>
+            <div className='max-w-[1440px] py-10 px-4 mx-auto'>
                 <footer className="flex flex-col md:flex-row justify-between items-center  text-white">
                     <div className='flex flex-col'>
                         <span className="footer-title">Services</span>

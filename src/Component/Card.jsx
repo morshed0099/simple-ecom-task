@@ -13,7 +13,7 @@ const Card = ({ product }) => {
     console.log(product);
     const { user, setLoader } = useContext(userAuth)
     const [activeCard, setActiveCard] = useState(false)
-    const [card, refetch] = useCardView(user?.phoneNumber)
+    const [card, refetch] = useCardView(user)
     const { _id, productName, price, oldPrice,
         description, imgaeOne, imageTwo, imageThird  } = product;
     const nagitage = useNavigate()

@@ -11,7 +11,9 @@
   width: 100% !important;
   height: 50px !important;
 }
-
+.active{
+  color: rgb(157, 20, 65);
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

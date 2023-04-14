@@ -11,6 +11,13 @@ import PrivateRoute from "./PrivateRoute";
 import MenProducs from "../pages/Products/MenProducs";
 import WomenProduct from "../pages/Products/WomenProduct";
 import KidsProducts from "../pages/Products/KidsProducts";
+import DashBorardLayout from "../layout/DashBorardLayout";
+import AddCutomer from "../pages/DashBoard/AddCustomer";
+import AllCustomers from "../pages/DashBoard/AllCustomers/AllCustomers";
+import AllOrder from "../pages/DashBoard/AllOrder/AllOrder";
+import AllProducts from "../pages/DashBoard/AllProducts/AllProducts";
+import AddpRroduct from "../pages/DashBoard/AddProduct/AddpRroduct";
+
 
 
 export const router = createBrowserRouter([
@@ -23,7 +30,7 @@ export const router = createBrowserRouter([
                 path: '/',
                 element: <Products />
             },
-       
+
             {
                 path: '/login',
                 element: <Login />
@@ -49,17 +56,45 @@ export const router = createBrowserRouter([
                 path: '/viewcart',
                 element: <ViewCat />
             },
-           
+
             {
                 path: '/productdetails/:id',
                 loader: async ({ params }) => {
                     return await fetch(`http://localhost:5000/productdetails/${params.id}`)
                 },
                 element: <PrivateRoute><ProductDetails /></PrivateRoute>
+            }
+
+        ],
+
+    },
+    {
+        path: "/dashboard",
+        element: <DashBorardLayout />,
+        children: [
+            {
+                path: '/dashboard',
+                element: <DashBorad />
             },
             {
-                path: "/dashboard",
-                element: <DashBorad />
+                path: '/dashboard/addcustomer',
+                element: <AddCutomer />
+            },
+            {
+                path:'/dashboard/allcustomer',
+                element:<AllCustomers />
+            },
+            {
+                path:'/dashboard/allorder',
+                element:<AllOrder />
+            },
+            {
+                path:"/dashboard/allproducts",
+                element:<AllProducts />
+            },
+            {
+                path:'/dashboard/addproduct',
+                element:<AddpRroduct />
             }
         ]
     }

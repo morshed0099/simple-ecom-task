@@ -44,7 +44,7 @@ const SignUp = () => {
 
     }
     return (
-        <div className='w-96 dark:bg-gray-900 bg-white mx-auto border placeholder-black border-black dark:border-white rounded-2xl p-4 my-4'>
+        <div className='w-96 bg-white mx-auto border placeholder-black border-black rounded-2xl p-6 my-6'>
             <form onSubmit={handelSingup}>
 
                 <div className='mb-2'>

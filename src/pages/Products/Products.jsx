@@ -10,11 +10,12 @@ import { Link } from 'react-router-dom';
 
 const Produncts = () => {
     const { user } = useContext(userAuth)
+    const [card, refetch] = useCardView(user);
 
-    const [card, refetch] = useCardView(user?.phoneNumber)
     const { data: products = [], isLoading } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
+            await refetch();
             const res = await fetch('http://localhost:5000/products')
             const data = await res.json()
             refetch()
@@ -29,7 +30,7 @@ const Produncts = () => {
 
 
     return (
-        <div className='max-w-[1200px] mx-auto'>
+        <div className='max-w-[1200px] p-4 mx-auto'>
             <div className='flex items-center justify-between'>
                 <div>
                     <h1 className='text-4xl text-center font-bold mt-4 mb-2'>

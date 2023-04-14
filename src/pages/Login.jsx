@@ -12,7 +12,7 @@ const Login = () => {
     const { user, loader, setLoader, setUser } = useContext(userAuth)
     console.log(user,loader ,'13')
     const isAdmin = true;
-    const [card, refetch] = useCardView(user?.phoneNumber)
+    const [card, refetch] = useCardView(user)
     let navigate = useNavigate();
     const location = useLocation()
     const form = location.state?.form?.pathname || '/'
@@ -54,7 +54,7 @@ const Login = () => {
     }
     return (
 
-        <div className='w-96 mx-auto my-6 border p-4 dark:bg-gray-900 bg-white border-gray-900 dark:border-white rounded-2xl'>
+        <div className='w-96 mx-auto my-6 border p-6  bg-white border-gray-900  rounded-2xl'>
             <form onSubmit={hadelLogin}>
                 <div className='text-3xl font-bold text-center p-4'><h1>Login Form</h1></div>
                 <p>ADMIN USER: admin@hotmail.com</p>

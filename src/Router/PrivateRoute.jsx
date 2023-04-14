@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { userAuth } from '../contextProvider/ContextProvider';
 import { Navigate, useLocation } from 'react-router-dom';
-
+import RiseLoader from "react-spinners/RiseLoader";
 const PrivateRoute = ({ children }) => {
   // const [token, setToken] = useState()
   // setToken()
@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }) => {
 
   }
   if (loader) {
-    return <h1>loading.....</h1>
+    return <div className='flex justify-center items-center'><RiseLoader color='green' /></div>
   }
 
   if (!user) {
