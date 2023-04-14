@@ -8,6 +8,8 @@ import DashBorad from "../pages/DashBoard/DashBorad";
 import ViewCat from "../pages/ViewCart/ViewCat";
 import Products from "../pages/Products/Products";
 import ProductDetails from "../pages/Products/ProductDetails";
+import PrivateRoute from "./PrivateRoute";
+
 
 export const router = createBrowserRouter([
     {
@@ -37,10 +39,10 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/productdetails/:id',
-                loader:async({params})=>{
+                loader: async ({ params }) => {
                     return await fetch(`http://localhost:5000/productdetails/${params.id}`)
                 },
-                element: <ProductDetails />
+                element: <PrivateRoute><ProductDetails /></PrivateRoute>
             },
             {
                 path: "/dashboard",

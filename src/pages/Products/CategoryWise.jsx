@@ -1,6 +1,7 @@
 import React from 'react';
-import SliderProduct from '../../contextProvider/SliderProduct';
+
 import Card from '../../Component/Card';
+import SliderProduct from '../../Component/SliderProduct';
 
 const CategoryWise = ({product}) => {
     return (

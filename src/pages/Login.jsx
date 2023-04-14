@@ -8,40 +8,45 @@ import { useState } from 'react';
 
 
 const Login = () => {
-    const [loader,setLoader]=useState(false)
-    const { user, setUser } = useContext(userAuth)
-    // const navigate=useNavigate()
-    // let location = useLocation();
-    // const from = location.state?.from?.pathname || "/";
+    const [loader, setLoader] = useState(false)
+    const { setUser } = useContext(userAuth)
+    let navigate = useNavigate();
+    const location = useLocation()
+    const form = location.state?.form?.pathname || '/'
 
     const hadelLogin = (e) => {
         setLoader(true)
         e.preventDefault()
         const form = e.target
-        const phoneNumber=form.phone.valu;
-        const password=form.password.value
-         const user ={
+        const phoneNumber = form.phone.value;
+        const password = form.password.value
+        console.log(phoneNumber);
+        const user = {
             phoneNumber,
             password
-         }
+        }
         fetch('http://localhost:5000/login', {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body:JSON.stringify(user)        
+            body: JSON.stringify(user)
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
-                if(data.token && data.user){
+                if (data.user) {
+                    getToken(data.token)
                     toast.success('login succesfully')
                     setLoader(false)
                     setUser(data.user);
-                    localStorage.setItem('token',data.token)
-                }else{
+                }
+                if (data.message) {
                     toast.error(data.message)
                     setLoader(false)
                 }
-            })
 
+            })
+    }
+    const getToken = (token) => {
+        localStorage.setItem('token', token)
+        navigate(form, { replace: true });
     }
     return (
 
@@ -75,9 +80,9 @@ const Login = () => {
                 </div>
                 <div>
                     <button className='btn bg-pink-600 hover:bg-pink-800 border-none w-full'>
-                      {
-                        loader?"please wait..":"Login"
-                      }
+                        {
+                            loader ? "please wait.." : "Login"
+                        }
                     </button>
                 </div>
             </form>

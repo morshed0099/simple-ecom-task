@@ -2,11 +2,14 @@ import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { userAuth } from '../contextProvider/ContextProvider';
 
+
 const Header = () => {
-    const { user, setuser } = useContext(userAuth)
+    const { user, setUser,setLoader } = useContext(userAuth)
     const isAdmin = true;
     const handelLogout = () => {
-
+        localStorage.removeItem('token');
+        setLoader(false)
+        setUser(null);
     }
     const menuItems =
         <>
