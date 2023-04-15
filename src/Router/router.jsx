@@ -17,7 +17,7 @@ import AllCustomers from "../pages/DashBoard/AllCustomers/AllCustomers";
 import AllOrder from "../pages/DashBoard/AllOrder/AllOrder";
 import AllProducts from "../pages/DashBoard/AllProducts/AllProducts";
 import AddpRroduct from "../pages/DashBoard/AddProduct/AddpRroduct";
-
+import Profile from "../pages/Profile";
 
 
 export const router = createBrowserRouter([
@@ -51,7 +51,10 @@ export const router = createBrowserRouter([
                 path: '/kids',
                 element: <KidsProducts />
             },
-
+            {
+                path:'/profile',
+                element:<Profile />
+            },
             {
                 path: '/viewcart',
                 element: <ViewCat />
@@ -60,7 +63,7 @@ export const router = createBrowserRouter([
             {
                 path: '/productdetails/:id',
                 loader: async ({ params }) => {
-                    return await fetch(`http://localhost:5000/productdetails/${params.id}`)
+                    return await fetch(`https://simple-ecom-server.vercel.app/productdetails/${params.id}`)
                 },
                 element: <PrivateRoute><ProductDetails /></PrivateRoute>
             }

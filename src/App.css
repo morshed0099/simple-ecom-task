@@ -6,7 +6,15 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+.slick-next:before{
+  color:black !important;
+}
+.slick-prev:before{
+  color:black !important;
+}
+.slick-next:before{
+  color:black !important;
+}
 .react-tel-input .form-control {
   width: 100% !important;
   height: 50px !important;

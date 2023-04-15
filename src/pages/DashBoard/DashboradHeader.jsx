@@ -30,6 +30,9 @@ const DashboradHeader = () => {
                     </div>
                 </label>
             </NavLink>
+            <NavLink to='/profile'>
+                <img src={user?.image ? user?.image : "https://th.bing.com/th?id=OIP.lcdOc6CAIpbvYx3XHfoJ0gHaF3&w=280&h=222&c=8&rs=1&qlt=90&o=6&dpr=1.1&pid=3.1&rm=2"} className='w-12 h-10 rounded-full' alt="" />
+            </NavLink>
             {
                 user?.email ?
                     <>
@@ -38,7 +41,7 @@ const DashboradHeader = () => {
                     :
                     <>
                         <NavLink style={{ marginTop: "10px", marginRight: "10px", fontWeight: "bold" }} to='/login'>Login</NavLink>
-                        <NavLink style={{ marginTop: "10px", marginRight: "10px", fontWeight: "bold" }} to='/signup'>SignUp</NavLink>
+
                     </>
             }
 

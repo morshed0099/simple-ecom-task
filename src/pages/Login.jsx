@@ -10,13 +10,16 @@ import useCardView from '../Hooks/useCardView';
 
 const Login = () => {
     const { user, loader, setLoader, setUser } = useContext(userAuth)
-    console.log(user,loader ,'13')
+    const [lao, setLao] = useState(false)
+    console.log(user, loader, '13')
     const isAdmin = true;
     const [card, refetch] = useCardView(user)
     let navigate = useNavigate();
     const location = useLocation()
     const form = location.state?.form?.pathname || '/'
+
     const hadelLogin = (e) => {
+        setLao(true)
         setLoader(true)
         e.preventDefault()
         const form = e.target
@@ -27,7 +30,7 @@ const Login = () => {
             phoneNumber,
             password
         }
-        fetch('http://localhost:5000/login', {
+        fetch('https://simple-ecom-server.vercel.app/login', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(user)
@@ -39,10 +42,13 @@ const Login = () => {
                     setLoader(false)
                     setUser(data.user);
                     refetch()
+                    setLao(false)
                 }
                 if (data.message) {
                     toast.error(data.message)
                     setLoader(false)
+                    setLao(false)
+
                 }
 
             })
@@ -85,7 +91,7 @@ const Login = () => {
                 <div>
                     <button className='btn bg-pink-600 hover:bg-pink-800 border-none w-full'>
                         {
-                            loader ? "please wait.." : "Login"
+                            lao ? "please wait.." : "Login"
                         }
                     </button>
                 </div>

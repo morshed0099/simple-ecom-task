@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -7,6 +8,7 @@ const AddpRroduct = () => {
     const [file, setFile] = useState();
     const [file1, setFile1] = useState();
     const [file2, setFile2] = useState();
+    const [selectCatgory, setSelectCatgoey] = useState([])
 
 
     // input image show 
@@ -61,7 +63,27 @@ const AddpRroduct = () => {
 
             })
     }
-    console.log(process.env.REACT_APP_KEY);
+    
+
+    // add category fetch 
+
+    const { data: category = [], isLoading, refetch } = useQuery({
+        queryKey: ['category'],
+        queryFn: async () => {
+            const res = await fetch('https://simple-ecom-server.vercel.app/category')
+            const data = await res.json()
+            return data
+        }
+    })
+
+    const hadelCategory = (e) => {
+        e.preventDefault()
+        setSelectCatgoey(e.target.value)
+        console.log(e.target.value)
+
+
+    }
+
     // add product fetch 
     const handelProductSave = (e) => {
         setLoader(true)
@@ -82,10 +104,11 @@ const AddpRroduct = () => {
             imgaeOne,
             imageTwo,
             imageThird,
-            description
+            description,
+            category_name:selectCatgory
         }
 
-        fetch('https://ecom-repliq-server-morshed0099.vercel.app/products', {
+        fetch('https://simple-ecom-server.vercel.app/product', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(product)
@@ -103,7 +126,7 @@ const AddpRroduct = () => {
 
 
     }
-
+    refetch()
     return (
         <div className='md:mx-8 max-w-[1000px] mx-4 border border-light rounded-2xl p-4'>
             <h2 className='text-3xl font-bold text-center py-4'>Add Product</h2>
@@ -137,6 +160,18 @@ const AddpRroduct = () => {
                         </div>
                     </div>
                 </div>
+                <div>
+                    <div>
+                        <select onChange={(e) => hadelCategory(e)} className="w-full my-4 px-4 rounded-2xl py-4">
+                            <option disabled selected>Select Category Name</option>
+                            {
+                                category.map(cat => <option className='text-black' value={cat.category_name}>{cat.category_name}</option>)
+                            }
+
+                        </select>
+                    </div>
+
+                </div>
                 <div className='mb-2'>
                     <label>Price</label>
                 </div>
@@ -156,7 +191,7 @@ const AddpRroduct = () => {
                     <textarea required name='description' className='w-full textarea textarea-bordered' rows="4"></textarea>
                 </div>
                 <div>
-                    <button className='btn bg-pink-600 hover:bg-pink-800 border-none w-full'>{loader ? "please wait":"Save"}</button>
+                    <button className='btn bg-pink-600 hover:bg-pink-800 border-none w-full'>{loader ? "please wait" : "Save"}</button>
                 </div>
             </form>
         </div>

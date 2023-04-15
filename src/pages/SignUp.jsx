@@ -24,7 +24,7 @@ const SignUp = () => {
             password,
             userRoll: "customer"
         }
-        fetch('http://localhost:5000/user', {
+        fetch('https://simple-ecom-server.vercel.app/user', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(user),

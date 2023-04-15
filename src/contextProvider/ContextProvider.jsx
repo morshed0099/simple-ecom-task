@@ -13,7 +13,7 @@ const ContextProvider = ({ children }) => {
         if (!token) {
             return console.log('token miss')
         } else {
-            fetch('http://localhost:5000/aboutme', {
+            fetch('https://simple-ecom-server.vercel.app/aboutme', {
                 method: "POST",
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`

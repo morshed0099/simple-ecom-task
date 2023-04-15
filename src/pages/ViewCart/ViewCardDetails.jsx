@@ -34,7 +34,7 @@ const ViewCardDetails = ({ crd, refetch }) => {
             customerPhone: user?.phoneNumber
         }
         console.log(buy)
-        fetch('http://localhost:5000/paid', {
+        fetch('https://simple-ecom-server.vercel.app/paid', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(buy)
@@ -50,7 +50,7 @@ const ViewCardDetails = ({ crd, refetch }) => {
         const fidner = { phoneNumber: user?.phoneNumber }
         const yes = window.confirm('are your sure datele ?')
         if (yes) {
-            fetch(`http://localhost:5000/card/${id}`, {
+            fetch(`https://simple-ecom-server.vercel.app/card/${id}`, {
                 method: "DELETE",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify(fidner)
