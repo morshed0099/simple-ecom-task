@@ -1,3 +1,42 @@
+
+### Repliq task
+live site link : https://idyllic-pithivier-5030c9.netlify.app/
+dear sir ,
+thank you for give chance.
+simple e-com project 
+made with react 
+*i am using login system jwt token, medhod for authentication.
+*tailwind css using for fornt end
+*for server i am useing daisyui
+using node package
+* "@heroicons/react": "^2.0.17",
+    "@tanstack/react-query": "^4.29.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "daisyui": "^2.51.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "react-phone-input-2": "^2.15.1",
+    "react-router-dom": "^6.10.0",
+    "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.8",
+    "slick-carousel": "^1.8.1",
+    "web-vitals": "^2.1.4"
+
+for time limit i am did not completing many feature 
+if you sir , give an oppertunaty i am completing all funtionality..
+
+but i think i am fuill fill the documention all feature .
+i am waiting for your valuable negative or possitive feadback .
+
+thank you sir 
+Golam Morshed 
++8801991394353
+mdgolammorshed0099@gmail.com
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
